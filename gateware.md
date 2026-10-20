@@ -55,3 +55,9 @@ Flashing
 artiq_flash -d ~/ARTIQ-alkaline/flash
 artiq_flash -d artiq_kasli/castor_master --srcbuild
 ```
+
+Clocking over USB
+```bash
+artiq_mkfs storage.img -s ip 192.168.1.70/24 -s rtio_clock ext0_synth0_10to125
+artiq_flash write=storage start -f storage.img
+```
