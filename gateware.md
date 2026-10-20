@@ -1,0 +1,57 @@
+
+Gateware development
+Prerequisites: 
+- Ubuntu 24.04
+- Vivado 2024.2 (path: ~/opt/Xilinx/Vivado/2024.2)
+
+<br>
+Building the board binaries
+
+```bash
+python3 -m artiq.gateware.targets.kasli [Path to crate config file (json)] 
+```
+
+<br>
+
+Prepare the flash directory.
+
+- **crate_name: transportable, testbed, possible**
+
+```bash
+mkdir flash 
+
+sudo cp ~/ARTIQ-alkaline/artiq_kasli/[crate_name]/software/bootloader/bootloader.bin ~/ARTIQ-alkaline/flash/ 
+
+sudo cp ~/ARTIQ-alkaline/artiq_kasli/[crate_name]/gateware/top.bit ~/ARTIQ-alkaline/flash/ 
+
+sudo cp ~/ARTIQ-alkaline/artiq_kasli/[crate_name]/software/runtime/runtime.fbi ~/ARTIQ-alkaline/flash/ 
+
+sudo cp ~/ARTIQ-alkaline/artiq_kasli/[crate_name]/software/runtime/runtime.elf ~/ARTIQ-alkaline/flash/ 
+```
+
+You should see a directory named 'flash' with four (4) items inside of it.
+<br><br><br>
+Confirn openocd location
+```bash
+which openocd
+# output would look something like this:
+/nix/store/i0f3cm13z9g5q3ns3253kcvhich5yh0l-openocd-bscanspi/bin/openocd
+```
+<br>
+
+Setup udev. 
+- This is a one-time process. If you have flashed before from your system, you don't need to do this again.
+```bash
+sudo cp /nix/store/i0f3cm13z9g5q3ns3253kcvhich5yh0l-openocd-bscanspi/share/openocd/contrib/60-openocd.rules /etc/udev/rules.d 
+ 
+sudo udevadm trigger
+```
+<br>
+
+Flashing
+- Connect your computer to kasli via micro-usb cable that can handle data transfer.
+
+```bash
+artiq_flash -d ~/ARTIQ-alkaline/flash
+artiq_flash -d artiq_kasli/castor_master --srcbuild
+```
