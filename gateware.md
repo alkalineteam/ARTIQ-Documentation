@@ -61,3 +61,8 @@ Clocking over USB
 artiq_mkfs storage.img -s ip 192.168.1.70/24 -s rtio_clock ext0_synth0_10to125
 artiq_flash write=storage start -f storage.img
 ```
+
+Creating new device_db
+```bash
+artiq_ddb_template castor_master.json -s 1 castor_satellite.json -o
+```
