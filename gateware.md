@@ -11,25 +11,6 @@ Building the board binaries
 python3 -m artiq.gateware.targets.kasli [Path to crate config file (json)] 
 ```
 
-<br>
-
-Prepare the flash directory.
-
-- **crate_name: transportable, testbed, possible**
-
-```bash
-mkdir flash 
-
-sudo cp ~/ARTIQ-alkaline/artiq_kasli/[crate_name]/software/bootloader/bootloader.bin ~/ARTIQ-alkaline/flash/ 
-
-sudo cp ~/ARTIQ-alkaline/artiq_kasli/[crate_name]/gateware/top.bit ~/ARTIQ-alkaline/flash/ 
-
-sudo cp ~/ARTIQ-alkaline/artiq_kasli/[crate_name]/software/runtime/runtime.fbi ~/ARTIQ-alkaline/flash/ 
-
-sudo cp ~/ARTIQ-alkaline/artiq_kasli/[crate_name]/software/runtime/runtime.elf ~/ARTIQ-alkaline/flash/ 
-```
-
-You should see a directory named 'flash' with four (4) items inside of it.
 <br><br><br>
 Confirn openocd location
 ```bash
@@ -50,19 +31,18 @@ sudo udevadm trigger
 
 Flashing
 - Connect your computer to kasli via micro-usb cable that can handle data transfer.
-
+**crate_name: testbed, castor, lri**
 ```bash
-artiq_flash -d ~/ARTIQ-alkaline/flash
-artiq_flash -d artiq_kasli/castor_master --srcbuild
+artiq_flash -d artiq_kasli/[crate_name] --srcbuild
 ```
 
 Clocking over USB
 ```bash
-artiq_mkfs storage.img -s ip 192.168.1.70/24 -s rtio_clock ext0_synth0_10to125
+artiq_mkfs storage.img -s ip [IP]/24 -s rtio_clock ext0_synth0_10to125
 artiq_flash write=storage start -f storage.img
 ```
 
 Creating new device_db
 ```bash
-artiq_ddb_template castor_master.json -s 1 castor_satellite.json -o
+artiq_ddb_template [master json] -s 1 [satellite json] -o
 ```
