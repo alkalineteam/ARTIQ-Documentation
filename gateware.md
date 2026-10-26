@@ -12,7 +12,8 @@ python3 -m artiq.gateware.targets.kasli [Path to crate config file (json)]
 ```
 
 <br>
-Confirn openocd location
+Confirm OpenOCD location
+
 ```bash
 which openocd
 # output would look something like this:
@@ -20,7 +21,7 @@ which openocd
 ```
 <br>
 
-Setup udev. 
+Set up udev. 
 - This is a one-time process. If you have flashed before from your system, you don't need to do this again.
 ```bash
 sudo cp /nix/store/i0f3cm13z9g5q3ns3253kcvhich5yh0l-openocd-bscanspi/share/openocd/contrib/60-openocd.rules /etc/udev/rules.d 
@@ -30,7 +31,7 @@ sudo udevadm trigger
 <br>
 
 Flashing
-- Connect your computer to kasli via micro-usb cable that can handle data transfer.<br>
+- Connect your computer to kasli via a micro-USB cable that can handle data transfer.<br>
 **crate_name: testbed, castor, lri**
 ```bash
 artiq_flash -d artiq_kasli/[crate_name] --srcbuild
