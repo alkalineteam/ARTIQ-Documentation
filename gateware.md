@@ -11,7 +11,7 @@ Building the board binaries
 python3 -m artiq.gateware.targets.kasli [Path to crate config file (json)] 
 ```
 
-<br><br><br>
+<br>
 Confirn openocd location
 ```bash
 which openocd
@@ -30,7 +30,7 @@ sudo udevadm trigger
 <br>
 
 Flashing
-- Connect your computer to kasli via micro-usb cable that can handle data transfer.
+- Connect your computer to kasli via micro-usb cable that can handle data transfer.<br>
 **crate_name: testbed, castor, lri**
 ```bash
 artiq_flash -d artiq_kasli/[crate_name] --srcbuild
